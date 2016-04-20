@@ -28,6 +28,8 @@ func (p *WorkerPool) Do(f func()) {
 }
 
 func (p *WorkerPool) Done() {
-	close(p.jobs)
-	p.wg.Wait()
+	if p.jobs != nil {
+		close(p.jobs)
+		p.wg.Wait()
+	}
 }
